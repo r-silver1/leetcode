@@ -1,9 +1,12 @@
 package com.example.leetcode.tictac.board;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
 import java.awt.geom.*;
 import javax.swing.JFrame;
 import java.util.ArrayList;
 import com.example.leetcode.tictac.Shape.Shape;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 /*
 2D graphics with java: https://books.trinket.io/thinkjava/appendix-b.html
@@ -21,26 +24,25 @@ public class board extends Canvas {
         frame.add(canvas);
         frame.pack();
         frame.setVisible(true);
-    }
-
-    public static void initShapes(){
-//        Line2D[] lineArr = {};
-//        lineArr.
-//        shapeList.add(new Line2D.Double(this.getWidth()*i/3.0, 0, this.getWidth()*i/3.0, this.getHeight()))
-        Shape O1 = new Shape(3, 1, "O");
-        Shape O2 = new Shape(3, 2, "O");
-        Shape O3 = new Shape(3, 3, "O");
-//        O1.print();
-        shapeList.add(O1);
-        shapeList.add(O2);
-        shapeList.add(O3);
-        shapeList.get(0).print();
 
     }
+
+    //https://stackoverflow.com/questions/1692677/how-to-create-a-jbutton-with-a-menu/1693326#1693326
+    public static void initMouse(){
+        canvas.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println("clicked!!!" + e.getX() + ", " + e.getY());
+            }
+
+        });
+    }
+
 
     public static void main(String[] arg){
         initBoard();
-        initShapes();
+//        initShapes();
+        initMouse();
     }
 
     public void paint(Graphics g){
