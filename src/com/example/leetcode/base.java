@@ -12,12 +12,6 @@ public class base {
         Shape X1 = new Shape(1, 1, "X");
         Shape X2 = new Shape(2, 2, "X");
 
-        board.shapeList.add(O1);
-        board.shapeList.add(O2);
-        board.shapeList.add(O3);
-        board.shapeList.add(X1);
-        board.shapeList.add(X2);
-
     }
 
     public static void main(String arg[]){

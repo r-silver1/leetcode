@@ -14,8 +14,9 @@ import java.awt.event.MouseEvent;
  */
 public class board extends Canvas {
 //    public static ArrayList<Line2D> shapeList = new ArrayList<Line2D>();
-    public static ArrayList<Shape> shapeList = new ArrayList<Shape>();
+    public static ArrayList<Shape> shapeList = new ArrayList<>();
     public static Canvas canvas = new board();
+    public static Boolean xTurn = true;
 
     public static void initBoard(){
         //application ends when JFrame closes
@@ -33,10 +34,16 @@ public class board extends Canvas {
         canvas.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-//                System.out.println("clicked!!!" + e.getX() + ", " + e.getY());
                 int[] colRow = Decoder.cellDecode(e.getX(), e.getY(), canvas.getWidth(), canvas.getHeight());
                 System.out.println("col, row: " + colRow[0] + "," + colRow[1]);
-                shapeList.add(new Shape(colRow[0], colRow[1], "X"));
+                String thisLetter;
+                if(xTurn){
+                    thisLetter = "X";
+                }else{
+                    thisLetter = "O";
+                }
+                xTurn = !xTurn;
+                shapeList.add(new Shape(colRow[0], colRow[1], thisLetter));
                 canvas.repaint();
 
             }
@@ -62,9 +69,7 @@ public class board extends Canvas {
         g2.setFont(new Font("TimesRoman", Font.BOLD, 30));
         for(Shape curr : shapeList){
             curr.print();
-//            g2.drawString(shapeList.get(0).getLetter(), Math.round((shapeList.get(0).getCol()*(this.getWidth()/3.0)-this.getWidth()/5.0)), Math.round((shapeList.get(0).getCol()*(this.getHeight()/2.7)-this.getHeight()/5.0)));
             g2.drawString(curr.getLetter(), Math.round((curr.getCol()*(this.getWidth()/3.0)-this.getWidth()/5.0)), Math.round((curr.getRow()*(this.getHeight()/2.7)-this.getHeight()/5.0)));
         }
-//        g2.drawString(shapeList.get(0).getLetter(), Math.round((shapeList.get(0).getCol()*(this.getWidth()/3.0)-this.getWidth()/5.0)), Math.round((shapeList.get(0).getCol()*(this.getHeight()/2.7)-this.getHeight()/5.0)));
     }
 }
