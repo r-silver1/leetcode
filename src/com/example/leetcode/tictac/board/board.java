@@ -5,8 +5,9 @@ import java.awt.geom.*;
 import javax.swing.JFrame;
 import java.util.ArrayList;
 import com.example.leetcode.tictac.Shape.Shape;
+import com.example.leetcode.tictac.Decoder.Decoder;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+
 
 /*
 2D graphics with java: https://books.trinket.io/thinkjava/appendix-b.html
@@ -32,7 +33,12 @@ public class board extends Canvas {
         canvas.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("clicked!!!" + e.getX() + ", " + e.getY());
+//                System.out.println("clicked!!!" + e.getX() + ", " + e.getY());
+                int[] colRow = Decoder.cellDecode(e.getX(), e.getY(), canvas.getWidth(), canvas.getHeight());
+                System.out.println("col, row: " + colRow[0] + "," + colRow[1]);
+                shapeList.add(new Shape(colRow[0], colRow[1], "X"));
+                canvas.repaint();
+
             }
 
         });
