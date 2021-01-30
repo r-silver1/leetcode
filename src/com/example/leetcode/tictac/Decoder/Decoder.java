@@ -2,7 +2,7 @@ package com.example.leetcode.tictac.Decoder;
 
 public class Decoder {
     public static int[] cellDecode(int x, int y, int w, int h){
-        System.out.println("cellDecode: " + x + ", " + y);
+        //System.out.println("cellDecode: " + x + ", " + y);
         //left third
         int row;
         int col;
@@ -30,7 +30,8 @@ public class Decoder {
         return (retArr);
     }
 
-    public static int[][] initBoard(){
+    //todo: move init and print to board.java?
+    public static int[][] initBoardArray(){
         int[][] temp = new int[3][3];
         for(int[] col : temp){
             for(int row : col){
@@ -39,6 +40,7 @@ public class Decoder {
         }
         return temp;
     }
+
 
     public static void printBoard(int[][] temp){
         System.out.println("Board: ");

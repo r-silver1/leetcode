@@ -27,9 +27,18 @@ public class board extends Canvas {
         frame.add(canvas);
         frame.pack();
         frame.setVisible(true);
-        boardTiles = Decoder.initBoard();
+        boardTiles = Decoder.initBoardArray();
         Decoder.printBoard(boardTiles);
+    }
 
+    public static boolean checkTile(int row, int col){
+        if(boardTiles[col-1][row-1] == 0){
+            System.out.println("no double");
+            return true;
+        }else{
+            System.out.println("double");
+            return false;
+        }
     }
 
     public static void updateTiles(Shape s){
@@ -42,28 +51,35 @@ public class board extends Canvas {
         boardTiles[s.getRow()-1][s.getCol()-1] = tempInt;
     }
 
+//    public static boolean checkWin(){
+//        for(int[] row : boardTiles){
+//
+//        }
+//        return false;
+//    }
+
     //https://stackoverflow.com/questions/1692677/how-to-create-a-jbutton-with-a-menu/1693326#1693326
     public static void initMouse(){
         canvas.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int[] colRow = Decoder.cellDecode(e.getX(), e.getY(), canvas.getWidth(), canvas.getHeight());
-                System.out.println("col, row: " + colRow[0] + "," + colRow[1]);
-                String thisLetter;
-                if(xTurn){
-                    thisLetter = "X";
-                }else{
-                    thisLetter = "O";
+//                System.out.println("col, row: " + colRow[0] + "," + colRow[1]);
+                if(checkTile(colRow[0], colRow[1])) {
+                    String thisLetter;
+                    if (xTurn) {
+                        thisLetter = "X";
+                    } else {
+                        thisLetter = "O";
+                    }
+                    xTurn = !xTurn;
+                    Shape thisTurn = new Shape(colRow[0], colRow[1], thisLetter);
+                    shapeList.add(thisTurn);
+                    updateTiles(thisTurn);
+                    Decoder.printBoard(boardTiles);
+                    canvas.repaint();
                 }
-                xTurn = !xTurn;
-                Shape thisTurn = new Shape(colRow[0], colRow[1], thisLetter);
-                shapeList.add(thisTurn);
-                updateTiles(thisTurn);
-                Decoder.printBoard(boardTiles);
-                canvas.repaint();
-
             }
-
         });
     }
 
@@ -84,7 +100,7 @@ public class board extends Canvas {
         }
         g2.setFont(new Font("TimesRoman", Font.BOLD, 30));
         for(Shape curr : shapeList){
-            curr.print();
+//            curr.print();
             g2.drawString(curr.getLetter(), Math.round((curr.getCol()*(this.getWidth()/3.0)-this.getWidth()/5.0)), Math.round((curr.getRow()*(this.getHeight()/2.7)-this.getHeight()/5.0)));
         }
     }
