@@ -17,6 +17,7 @@ public class board extends Canvas {
     public static ArrayList<Shape> shapeList = new ArrayList<>();
     public static Canvas canvas = new board();
     public static Boolean xTurn = true;
+    public static int[][] boardTiles = new int[3][3];
 
     public static void initBoard(){
         //application ends when JFrame closes
@@ -26,7 +27,19 @@ public class board extends Canvas {
         frame.add(canvas);
         frame.pack();
         frame.setVisible(true);
+        boardTiles = Decoder.initBoard();
+        Decoder.printBoard(boardTiles);
 
+    }
+
+    public static void updateTiles(Shape s){
+        int tempInt = 0;
+        if(s.getLetter() == "X"){
+            tempInt = -1;
+        }else{
+            tempInt = 1;
+        }
+        boardTiles[s.getRow()-1][s.getCol()-1] = tempInt;
     }
 
     //https://stackoverflow.com/questions/1692677/how-to-create-a-jbutton-with-a-menu/1693326#1693326
@@ -43,7 +56,10 @@ public class board extends Canvas {
                     thisLetter = "O";
                 }
                 xTurn = !xTurn;
-                shapeList.add(new Shape(colRow[0], colRow[1], thisLetter));
+                Shape thisTurn = new Shape(colRow[0], colRow[1], thisLetter);
+                shapeList.add(thisTurn);
+                updateTiles(thisTurn);
+                Decoder.printBoard(boardTiles);
                 canvas.repaint();
 
             }

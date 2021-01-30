@@ -29,4 +29,27 @@ public class Decoder {
         int[] retArr = {col, row};
         return (retArr);
     }
+
+    public static int[][] initBoard(){
+        int[][] temp = new int[3][3];
+        for(int[] col : temp){
+            for(int row : col){
+                row = 0;
+            }
+        }
+        return temp;
+    }
+
+    public static void printBoard(int[][] temp){
+        System.out.println("Board: ");
+        for(int[] col : temp){
+            System.out.print("[");
+            for(int row : col){
+                System.out.print(row + ",");
+            }
+            System.out.println("]");
+        }
+    }
+
+
 }
