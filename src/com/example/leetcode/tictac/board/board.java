@@ -51,12 +51,54 @@ public class board extends Canvas {
         boardTiles[s.getRow()-1][s.getCol()-1] = tempInt;
     }
 
-//    public static boolean checkWin(){
-//        for(int[] row : boardTiles){
-//
-//        }
-//        return false;
-//    }
+    public static boolean checkWin(){
+        int[] colSum = new int[boardTiles.length];
+
+        //row wins
+        for(int i = 0; i<boardTiles.length; i+=1){
+            int rowSum = 0;
+            for(int j = 0; j<boardTiles[i].length; j+=1){
+                rowSum+=boardTiles[i][j];
+                colSum[j] +=  boardTiles[i][j];
+            }
+            //win O
+            if(rowSum == boardTiles.length){
+                System.out.println("row win: " + (i+1) + " letter: O");
+            }else if(rowSum == -boardTiles.length){
+                System.out.println("row in: " + (i+1) + "letter: X");
+            }
+        }
+
+        //column wins
+        for(int i = 0; i < colSum.length; i+=1){
+            if(colSum[i] == boardTiles.length){
+                System.out.println("col win: " + (i+1) + " letter: O");
+            }else if(colSum[i] == -boardTiles.length){
+                System.out.println("col win: " + (i+1) + " letter: X");
+            }
+        }
+
+        //diag wins
+        int diagTopLeft = 0;
+        int diagTopRight = 0;
+        for(int i = 0; i < boardTiles.length; i+=1){
+            diagTopLeft += boardTiles[i][i];
+            diagTopRight += boardTiles[i][boardTiles.length-1-i];
+        }
+        if(diagTopLeft == boardTiles.length){
+            System.out.println("diag win: TL, letter: O");
+        }else if(diagTopLeft == -boardTiles.length){
+            System.out.println("diag win: TL, letter: X");
+        }
+
+        if(diagTopRight == boardTiles.length){
+            System.out.println("diag win: TR, letter: O");
+        }else if(diagTopRight == -boardTiles.length){
+            System.out.println("diag win: TR, letter: X");
+        }
+
+        return false;
+    }
 
     //https://stackoverflow.com/questions/1692677/how-to-create-a-jbutton-with-a-menu/1693326#1693326
     public static void initMouse(){
@@ -103,5 +145,6 @@ public class board extends Canvas {
 //            curr.print();
             g2.drawString(curr.getLetter(), Math.round((curr.getCol()*(this.getWidth()/3.0)-this.getWidth()/5.0)), Math.round((curr.getRow()*(this.getHeight()/2.7)-this.getHeight()/5.0)));
         }
+        checkWin();
     }
 }
