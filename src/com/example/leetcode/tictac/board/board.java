@@ -166,6 +166,7 @@ public class board extends Canvas {
         Graphics2D g2 = (Graphics2D) g;
         //draw tic tac toe lines using line2d primitive https://docs.oracle.com/javase/tutorial/2d/geometry/primitives.html
         for(int i = 1; i<3; i+=1){
+            g2.setStroke(new BasicStroke(5));
             g2.draw(new Line2D.Double(this.getWidth()*i/3.0, 0, this.getWidth()*i/3.0, this.getHeight()));
             g2.draw(new Line2D.Double(0, this.getHeight()*i/3.0, this.getWidth(), this.getHeight()*i/3.0));
         }
